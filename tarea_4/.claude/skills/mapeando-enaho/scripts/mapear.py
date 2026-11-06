@@ -30,14 +30,17 @@ def unir(limites, pobreza):
     return mapa
 
 
-def validar(mapa, anio):
-    """Compara cada departamento con la referencia oficial del año, si existe."""
+def validar(mapa, anio, salidas):
+    """Compara cada departamento con la referencia de la sesión y guarda la tabla en salidas/."""
     if anio not in REFERENCIA:
         print(f"Sin referencia para {anio}. Mapa NO validado.")
         return
     ref = pd.read_csv(REFERENCIA[anio], dtype={"ccdd": str})
     t = mapa.merge(ref, left_on="departamento", right_on="ccdd", validate="1:1")
     dif = (t.pobreza - t.pobreza_pct).abs()
+    pd.DataFrame({"departamento": t.ccdd, "nombre": t.NOMBDEP, "pobreza_calculada": t.pobreza.round(2),
+                  "pobreza_referencia": t.pobreza_pct, "diferencia": (t.pobreza - t.pobreza_pct).round(2)}
+                 ).to_csv(salidas / f"mapa_vs_referencia_{anio}.csv", index=False, encoding="utf-8")
     if len(t) != 25 or dif.max() >= TOLERANCIA:
         sys.exit(f"ERROR: el mapa no replica la referencia. Diferencia máxima {dif.max():.2f} puntos.")
     print(f"Validado contra la referencia: diferencia máxima {dif.max():.2f} puntos.")
@@ -61,7 +64,13 @@ def main():
 
     mapa = unir(gpd.read_file(a.datos / GEOJSON), pobreza_departamental(pd.read_parquet(ruta)))
 
-    validar(mapa, a.anio)
+    a.salidas.mkdir(exist_ok=True)
+    validar(mapa, a.anio, a.salidas)
+
+    nombres = pd.read_parquet(ruta, columns=["departamento", "nombre_departamento"]).drop_duplicates()
+    mapa = mapa.merge(nombres, on="departamento", how="left", validate="1:1")
+    alto, bajo = mapa.loc[mapa.pobreza.idxmax()], mapa.loc[mapa.pobreza.idxmin()]
+    lima, callao = (mapa.set_index("departamento").loc[c] for c in ("15", "07"))
 
     fig, ax = plt.subplots(figsize=(7, 9))
     mapa.plot(
@@ -69,8 +78,13 @@ def main():
         legend_kwds={"label": "Pobreza monetaria, % de personas", "shrink": 0.5},
     )
     ax.set_axis_off()
-    ax.set_title(f"Pobreza monetaria por departamento, {a.anio}", fontsize=14)
-    fig.text(0.02, 0.02, f"Fuente: INEI, ENAHO {a.anio}", fontsize=8, color="#555555")
+    ax.set_title(f"La pobreza monetaria va de {bajo.pobreza:.1f}% en {bajo.nombre_departamento} a "
+                 f"{alto.pobreza:.1f}% en {alto.nombre_departamento}\nPobreza por departamento, Perú {a.anio}",
+                 fontsize=12, loc="left")
+    ax.text(0.02, 0.12, f"Lima (15): {lima.pobreza:.1f}%\nCallao (07): {callao.pobreza:.1f}%",
+            transform=ax.transAxes, fontsize=9, color="#333333")
+    fig.text(0.02, 0.02, f"Fuente: INEI, ENAHO {a.anio} (módulos 34 y 02), estimaciones ponderadas con facpob07. "
+             "Límites: GeoJSON departamental del curso.", fontsize=7.5, color="#555555")
 
     a.mapas.mkdir(exist_ok=True)
     salida = a.mapas / "pobreza_departamento.png"

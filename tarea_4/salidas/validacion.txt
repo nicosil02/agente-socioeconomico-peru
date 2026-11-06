@@ -1,0 +1,35 @@
+ENAHO 2024
+Hogares en la sumaria: 33,691
+Filas del módulo de miembros: 117,721
+Residentes habituales: 108,664
+Miembros del hogar, base de la pobreza: 109,842
+Población expandida (suma de facpob07): 34,482,700
+Pobreza con la sumaria, factor07 por mieperho: 27.58%
+Pobreza con personas, facpob07: 27.58%
+Pobreza con residentes habituales, facpob07: 27.53%
+Pobreza urbana: 24.81%
+Pobreza rural: 39.30%
+Pobreza extrema: 5.50%
+Pobreza sin ponderar, solo para mostrar el efecto del factor: 25.65%
+Referencia INEI 2024: pobreza 27.6%, urbana 24.8%, rural 39.3%, residentes 108,664
+
+Validaciones:
+[OK] Llaves conglome, vivienda y hogar leídas como texto, con sus ceros iniciales
+[OK] Ningún hogar repetido en la sumaria
+[OK] Ninguna persona repetida en el módulo de miembros
+[OK] mieperho igual al conteo de miembros p204 == 1 en cada hogar
+[OK] Unión m:1 sin perder ni duplicar personas
+[OK] Todas las personas encuentran su hogar en la sumaria
+[OK] Ubigeo de 6 dígitos en todas las personas
+[OK] 25 códigos territoriales, del 01 al 25
+[OK] Factor facpob07 completo y positivo
+[OK] facpob07 igual al factor07 del hogar en cada miembro
+[OK] Pobreza nacional con la sumaria a menos de 0.1 pp de 27.6%
+[OK] Pobreza nacional con personas a menos de 0.1 pp de 27.6%
+[OK] Pobreza con residentes habituales a menos de 0.1 pp de 27.6% (control, no detiene)
+[OK] Pobreza urbana a menos de 0.1 pp de 24.8%
+[OK] Pobreza rural a menos de 0.1 pp de 39.3%
+[OK] Pobreza extrema a menos de 0.1 pp de 5.5%
+[OK] 33,691 hogares en la sumaria
+[OK] 117,721 filas en el módulo de miembros
+[OK] 108,664 residentes habituales
