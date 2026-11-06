@@ -187,7 +187,8 @@ def graficar_serie(codigo: str, desde: str, hasta: str, titulo: str, marcar: str
 
     titulo: una frase que diga lo que muestra el gráfico, por ejemplo "El PBI cayó 10.9% en 2020 y en 2022 ya
     superaba su nivel de 2019". Las cifras del título deben salir de resumen o comparar_periodos, no de memoria.
-    marcar: periodo opcional que se resalta con una línea vertical, por ejemplo "2020" o "2020-04".
+    marcar: periodo opcional que se resalta con una línea vertical en series mensuales, trimestrales o diarias,
+    por ejemplo "2020-04". En las anuales no se usa: se grafican en barras y cada año ya se distingue.
     El gráfico lleva el nombre y el código de la serie, las unidades y la fuente.
     """
     import matplotlib
