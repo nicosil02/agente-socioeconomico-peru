@@ -8,6 +8,7 @@
 | codperso | Llave de la persona dentro del hogar | Texto |
 | ubigeo | Distrito, seis dígitos | Texto |
 | departamento | Primeros dos dígitos del ubigeo | Texto, 01 a 25 |
+| nombre_departamento | Nombre del departamento, con tildes | Texto |
 | dominio | Dominio geográfico | 8 es Lima Metropolitana |
 | estrato | Tamaño del centro poblado | 1 a 8 |
 | urbano | estrato menor o igual a 5 | True o False |
