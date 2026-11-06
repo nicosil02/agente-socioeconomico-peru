@@ -40,4 +40,4 @@ Nunca promedies la columna pobreza. Sus valores son categorías.
 
 - Lima es 15 y Callao es 07. Son departamentos distintos.
 - El módulo 02 trae 117,721 filas en 2024. Muchas son personas que no son miembros del hogar.
-- Otras variables están en los módulos que lista la skill descargando-enaho. Cada zip trae su diccionario en PDF.
+- Otras variables están en los módulos que lista uv run ${CLAUDE_SKILL_DIR}/scripts/descargar.py --listar. Cada zip trae su diccionario en PDF.

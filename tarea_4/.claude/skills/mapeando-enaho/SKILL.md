@@ -7,7 +7,7 @@ argument-hint: [año]
 
 1. Toma el año del pedido. Si no lo dice, usa el de la única salidas/personas_*.parquet. Si no hay ninguna o hay varias, pregúntalo.
 2. Si no existe salidas/personas_<año>.parquet, usa primero la skill limpiando-enaho.
-3. Si falta datos/peru_departamental_simple.geojson, usa la skill descargando-enaho con --limites.
+3. Si falta datos/peru_departamental_simple.geojson, corre: uv run .claude/skills/limpiando-enaho/scripts/descargar.py --anio 2024 --modulos 34 02 --limites.
 4. Corre exactamente: uv run ${CLAUDE_SKILL_DIR}/scripts/mapear.py --anio <año>
 5. Si el script termina en ERROR, detente y muestra el mensaje. Nunca unas por nombre para arreglarlo.
 6. Abre mapas/pobreza_departamento.png y revisa que se lea bien antes de responder.

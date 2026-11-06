@@ -17,7 +17,7 @@ from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 
 AQUI = Path(__file__).parent
-CATALOGO = AQUI / "datos" / "catalogo_bcrp.csv"
+CATALOGO = AQUI.parent / "datos" / "catalogo_bcrp.csv"
 URL_CATALOGO = "https://estadisticas.bcrp.gob.pe/estadisticas/series/metadata"
 API = "https://estadisticas.bcrp.gob.pe/estadisticas/series/api"
 SOLO_LECTURA = {"readOnlyHint": True, "openWorldHint": True}

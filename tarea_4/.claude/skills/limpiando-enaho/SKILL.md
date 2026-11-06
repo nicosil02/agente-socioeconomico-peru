@@ -6,7 +6,7 @@ argument-hint: [año]
 # Limpiar la ENAHO
 
 1. Toma el año del pedido. Si no lo dice, pregúntalo.
-2. Si faltan los módulos 34 o 02 de ese año en datos/, usa la skill descargando-enaho con ese año y esos dos módulos.
+2. Si faltan los módulos 34 o 02 de ese año en datos/, corre: uv run ${CLAUDE_SKILL_DIR}/scripts/descargar.py --anio <año> --modulos 34 02 --limites. Si termina en ERROR, muéstralo y detente; no busques otros enlaces.
 3. Corre exactamente: uv run ${CLAUDE_SKILL_DIR}/scripts/limpiar.py --anio <año>
 4. Lee salidas/validacion.txt. Si el script termina en ERROR, detente y muestra qué prueba falló. Nunca ajustes filtros ni pesos para que cuadre.
 5. Si el año no tiene cifras oficiales cargadas, avisa que la base no está validada.

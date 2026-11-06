@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 GEOJSON = "peru_departamental_simple.geojson"
-REFERENCIA = {2024: Path(__file__).parents[1] / "referencia_pobreza_2024.csv"}
+REFERENCIA = {2024: Path(__file__).parent / "referencia_pobreza_2024.csv"}
 TOLERANCIA = 0.1
 
 
@@ -57,7 +57,7 @@ def main():
     if not ruta.exists():
         sys.exit(f"ERROR: falta {ruta}. Usa primero la skill limpiando-enaho.")
     if not (a.datos / GEOJSON).exists():
-        sys.exit(f"ERROR: falta {a.datos / GEOJSON}. Usa primero la skill descargando-enaho.")
+        sys.exit(f"ERROR: falta {a.datos / GEOJSON}. Corre: uv run .claude/skills/limpiando-enaho/scripts/descargar.py --anio 2024 --modulos 34 02 --limites")
 
     mapa = unir(gpd.read_file(a.datos / GEOJSON), pobreza_departamental(pd.read_parquet(ruta)))
 
