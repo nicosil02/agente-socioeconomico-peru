@@ -1,7 +1,7 @@
 ---
 name: graficando-enaho
 description: Crea gráficos de barras de la pobreza monetaria del Perú con la ENAHO por área urbana y rural, sexo, grupo de edad o departamento, ponderados con el factor de expansión. Úsala cuando pidan graficar, comparar o visualizar la pobreza o la ENAHO.
-argument-hint: [area|sexo|edad|departamento] [año]
+argument-hint: "[area|sexo|edad|departamento] [año]"
 ---
 # Graficar la ENAHO
 

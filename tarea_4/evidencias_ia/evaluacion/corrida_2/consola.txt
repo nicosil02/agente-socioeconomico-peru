@@ -1,0 +1,19 @@
+20 llamadas a claude -p con sonnet...
+
+modo                       A         B
+id                                    
+bcrp_empleo_2024         NaN   5907.78
+bcrp_ipc_set26           NaN      4.55
+bcrp_pbi_2020          -11.0    -10.93
+bcrp_tasa_ref_set26      NaN      4.25
+enaho_cajamarca          NaN     45.00
+enaho_pobreza_extrema    NaN      5.50
+enaho_pobreza_nacional  27.6     27.60
+enaho_pobreza_rural      NaN     39.30
+mixta_pbi_por_persona    NaN  16982.95
+mixta_pobres_2024        NaN      9.39
+
+resultado  acierta  no responde  segundos_promedio
+modo                                              
+A                2            8                4.4
+B               10            0                9.9

@@ -1,7 +1,7 @@
 ---
 name: mapeando-enaho
 description: Hace el mapa del Perú con la pobreza monetaria por departamento a partir de la ENAHO y el GeoJSON de límites, uniendo por código y validando los 25 departamentos contra la referencia de la sesión. Úsala cuando pidan un mapa, coropleta o comparación de la pobreza por departamento o región.
-argument-hint: [año]
+argument-hint: "[año]"
 ---
 # Mapear la ENAHO
 

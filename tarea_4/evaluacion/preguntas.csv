@@ -1,9 +1,11 @@
-id,pregunta,verdad,tolerancia,serie,periodo
-ipc_set26,"¿Cuál fue la inflación interanual (variación del IPC en 12 meses) de Lima Metropolitana en setiembre de 2026, en %?",4.5487,0.05,PN01273PM,2026-09
-ipc_dic25,"¿Cuál fue la inflación interanual (variación del IPC en 12 meses) de Lima Metropolitana en diciembre de 2025, en %?",1.5088,0.05,PN01273PM,2025-12
-ipc_mar25,"¿Cuál fue la variación mensual del IPC de Lima Metropolitana en marzo de 2025, en %?",0.8102,0.02,PN01271PM,2025-03
-referencia_set26,"¿Cuál era la tasa de referencia de la política monetaria del BCRP en setiembre de 2026, en %?",4.25,0.01,PD04722MM,2026-09
-tc_15oct26,"¿Cuál fue el tipo de cambio interbancario venta del 15 de octubre de 2026 según el BCRP, en soles por dólar?",3.4282,0.002,PD04638PD,2026-10-15
-rin_ago26,"¿A cuánto ascendían las reservas internacionales netas del BCRP a fines de agosto de 2026, en millones de US$?",96517.9,100,PN00027MM,2026-08
-cobre_ago26,"¿Cuál fue el precio promedio del cobre en agosto de 2026 según el BCRP, en centavos de US$ por libra?",689.70,3.5,PN38784BM,2026-08
-pbi_2025,"¿Cuánto creció el PBI real del Perú en 2025 según el BCRP, en %?",3.4306,0.05,PM04923AA,2025
+id,tipo,pregunta,verdad,unidad,tolerancia,fuente_verdad,criterio
+bcrp_ipc_set26,BCRP,"¿Cuál fue la inflación interanual (variación del IPC en 12 meses) de Lima Metropolitana en setiembre de 2026, en %?",4.5487,%,0.05,"BCRP PN01273PM, Sep.2026 (API pública)",valor dentro de la tolerancia
+bcrp_tasa_ref_set26,BCRP,"¿Cuál era la tasa de referencia de la política monetaria del BCRP en setiembre de 2026, en %?",4.25,%,0.01,"BCRP PD04722MM, Sep.2026 (API pública)",valor dentro de la tolerancia
+bcrp_pbi_2020,BCRP,"¿Cuánto varió el PBI real del Perú en 2020 según el BCRP, en %?",-10.9333,%,0.1,"BCRP PM04863AA, 2020 (API pública)",valor dentro de la tolerancia
+bcrp_empleo_2024,BCRP,"¿Cuál fue el promedio mensual de los puestos de trabajo del sector formal total en el Perú durante 2024 según el BCRP, en miles?",5907.78,miles de puestos,5,"BCRP PN31879GM, promedio de Ene.2024 a Dic.2024 (API pública)",valor dentro de la tolerancia
+enaho_pobreza_nacional,ENAHO,"Según la ENAHO 2024 del INEI, ¿qué porcentaje de la población peruana estaba en situación de pobreza monetaria?",27.5795,%,0.1,"Sumaria 2024 (módulo 34), pobreza <= 2 ponderada con factor07 x mieperho; el INEI publica 27.6%",valor dentro de la tolerancia
+enaho_pobreza_rural,ENAHO,"Según la ENAHO 2024 del INEI, ¿qué porcentaje de la población del área rural del Perú estaba en situación de pobreza monetaria?",39.30,%,0.1,"Sumaria 2024, estrato > 5, ponderada con factor07 x mieperho; referencia de la tarea 39.3%",valor dentro de la tolerancia
+enaho_pobreza_extrema,ENAHO,"Según la ENAHO 2024 del INEI, ¿qué porcentaje de la población peruana estaba en situación de pobreza extrema?",5.5045,%,0.1,"Sumaria 2024, pobreza == 1 ponderada con factor07 x mieperho",valor dentro de la tolerancia
+enaho_cajamarca,ENAHO,"Según la ENAHO 2024 del INEI, ¿qué porcentaje de la población del departamento de Cajamarca estaba en situación de pobreza monetaria?",45.01,%,0.1,"Sumaria 2024, ubigeo 06, ponderada con factor07 x mieperho; referencia de la sesión 45.0%",valor dentro de la tolerancia
+mixta_pbi_por_persona,Combinada,"Dividiendo el PBI real de 2024 que publica el BCRP (en soles de 2007) entre la población que estima la ENAHO 2024 del INEI, ¿cuál era el PBI real por persona en 2024, en soles de 2007?",16982.95,soles de 2007 por persona,170,"BCRP PM04860AA 2024 (585,618 millones de S/ de 2007) / población expandida ENAHO 2024 (34,482,700)",valor dentro de 1% y la fuente cita al BCRP y a la ENAHO o el INEI
+mixta_pobres_2024,Combinada,"Aplicando la tasa de pobreza monetaria 2024 de la ENAHO del INEI a la población 2024 que publica el BCRP, ¿cuántas personas estaban en situación de pobreza monetaria, en millones?",9.3876,millones de personas,0.05,"Pobreza ENAHO 2024 (27.5795%) x población BCRP PM04861AA 2024 (34,038.457 miles)",valor dentro de la tolerancia y la fuente cita al BCRP y a la ENAHO o el INEI
