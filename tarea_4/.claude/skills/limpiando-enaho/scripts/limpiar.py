@@ -47,7 +47,7 @@ def tasa(df, condicion, peso):
 
 
 def indicadores(base, anio):
-    """Pobreza ponderada nacional, por área, por sexo y por departamento, con población expandida y muestra."""
+    """Pobreza y pobreza extrema ponderadas, nacional, por área, sexo y departamento, con población expandida y muestra."""
     cortes = {"nacional": pd.Series("Perú", index=base.index),
               "area": base.urbano.map({True: "Urbana", False: "Rural"}),
               "sexo": base.p207.map({1: "Hombres", 2: "Mujeres"}),
@@ -57,6 +57,7 @@ def indicadores(base, anio):
         for nombre, g in base.groupby(grupo):
             filas.append({"anio": anio, "corte": corte, "grupo": nombre,
                           "pobreza_pct": round(tasa(g, g.pobre, "facpob07"), 2),
+                          "pobreza_extrema_pct": round(tasa(g, g.pobreza == 1, "facpob07"), 2),
                           "poblacion_expandida": round(g.facpob07.sum()), "personas_muestra": len(g)})
     return pd.DataFrame(filas)
 
