@@ -1,0 +1,13 @@
+$ uv run pytest -v mcp .claude/skills/limpiando-enaho/scripts/test_limpiar.py
+mcp/test_server.py::test_buscar_encuentra_el_ipc PASSED                  [  9%]
+mcp/test_server.py::test_cuatro_herramientas_como_minimo PASSED          [ 18%]
+mcp/test_server.py::test_serie_mensual PASSED                            [ 27%]
+mcp/test_server.py::test_serie_diaria PASSED                             [ 36%]
+mcp/test_server.py::test_resumen_sin_cuentas_a_mano PASSED               [ 45%]
+mcp/test_server.py::test_codigo_inexistente_da_un_error_claro PASSED     [ 54%]
+mcp/test_server.py::test_un_recurso PASSED                               [ 63%]
+mcp/test_server.py::test_un_prompt PASSED                                [ 72%]
+mcp/test_server.py::test_comparar_periodos_con_cifras_oficiales PASSED   [ 81%]
+mcp/test_server.py::test_comparar_periodos_sin_datos_da_error_claro PASSED [ 90%]
+.claude/skills/limpiando-enaho/scripts/test_limpiar.py::test_una_falla_detiene_y_no_guarda PASSED [100%]
+============================= 11 passed in 9.81s ==============================
