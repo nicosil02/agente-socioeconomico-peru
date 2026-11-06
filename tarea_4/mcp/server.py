@@ -1,4 +1,4 @@
-"""Servidor MCP del BCRP: buscar, bajar y resumir series oficiales, y comparar dos periodos de una serie.
+"""Servidor MCP del BCRP: buscar, bajar, resumir, comparar periodos y graficar series oficiales.
 
     uv run pytest mcp                  # 8 pruebas del curso + 2 de comparar_periodos
     uv run mcp/server.py               # el servidor, por stdio (así lo lanza .mcp.json)
@@ -179,6 +179,50 @@ def comparar_periodos(codigo: str, desde_a: str, hasta_a: str, desde_b: str, has
     return {"codigo": codigo, "nombre": a["nombre"], "periodo_a": a, "periodo_b": b,
             "diferencia_promedio": round(dif, 4),
             "variacion_promedio_pct": round(100 * dif / a["promedio"], 4) if a["promedio"] else None}
+
+
+@mcp.tool(annotations={"readOnlyHint": False, "openWorldHint": True})
+def graficar_serie(codigo: str, desde: str, hasta: str, titulo: str, marcar: str | None = None) -> dict:
+    """Grafica una serie del BCRP entre dos fechas y guarda el PNG en figuras/. Devuelve la ruta y el resumen.
+
+    titulo: una frase que diga lo que muestra el gráfico, por ejemplo "El PBI cayó 10.9% en 2020 y en 2022 ya
+    superaba su nivel de 2019". Las cifras del título deben salir de resumen o comparar_periodos, no de memoria.
+    marcar: periodo opcional que se resalta con una línea vertical, por ejemplo "2020" o "2020-04".
+    El gráfico lleva el nombre y el código de la serie, las unidades y la fuente.
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    s = serie(codigo, desde, hasta)
+    if not s["datos"]:
+        raise ToolError(f"La serie {codigo} no tiene datos en ese periodo ({s['fuente']}).")
+    periodos = [d["periodo"] for d in s["datos"]]
+    valores = [d["valor"] for d in s["datos"]]
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    if s["frecuencia"] == "Anual":
+        barras = ax.bar(periodos, valores, color="#1F4E79")
+        ax.bar_label(barras, labels=[f"{v:,.1f}" for v in valores], fontsize=8, padding=2)
+    else:
+        ax.plot(periodos, valores, color="#1F4E79", linewidth=1.6)
+        paso = max(1, len(periodos) // 8)
+        ax.set_xticks(range(0, len(periodos), paso), [periodos[i] for i in range(0, len(periodos), paso)],
+                      rotation=45, ha="right")
+    if marcar in periodos and s["frecuencia"] != "Anual":   # en barras anuales la caída ya se ve
+        ax.axvline(periodos.index(marcar), color="#B5451B", linestyle="--", linewidth=1)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.set_title(titulo, loc="left", fontsize=11)
+    unidades = re.findall(r"\(([^()]*)\)", s["nombre"])
+    ax.set_ylabel(unidades[-1] if unidades else s["nombre"].split(" - ")[-1], fontsize=9)
+    fig.text(0.01, 0.01, f"Fuente: BCRP, serie {codigo} ({s['nombre']}), {periodos[0]} a {periodos[-1]}.",
+             fontsize=7, color="#555555")
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    carpeta = AQUI.parent / "figuras"
+    carpeta.mkdir(exist_ok=True)
+    ruta = carpeta / f"bcrp_{codigo}_{periodos[0]}_{periodos[-1]}.png"
+    fig.savefig(ruta, dpi=200)
+    plt.close(fig)
+    return {"ruta": str(ruta.relative_to(AQUI.parent)).replace("\\", "/"), "resumen": _resumir(s)}
 
 
 @mcp.resource("bcrp://serie/{codigo}", mime_type="application/json")
